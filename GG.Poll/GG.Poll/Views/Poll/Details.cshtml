@@ -1,0 +1,75 @@
+﻿@model GG.Poll.Models.UniversalPoll
+
+@{
+    ViewData["Title"] = "PollDetail";
+}
+
+<h2>PollDetail</h2>
+
+<div>
+    <h4>UniversalPoll</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+    </dl>
+</div>
+
+@foreach (var choice in Model.Choices)
+{
+    var sum = choice.Voters?.Sum(v => v.Rating) ?? 0;
+    var count = choice.Voters?.Count() ?? 1;
+    @($"{choice.Title} Rate {((double)sum / count).ToString("0.00")}")
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal_@choice.Id">
+        <span class="glyphicon glyphicon-search"></span>
+    </button>
+    for (int i = 1; i < 6; i++)
+    {
+        <a asp-action="Vote" asp-route-pollid="@Model.Id" asp-route-choiceid="@choice.Id" asp-route-rating="@i">@i</a>
+    }
+    <div class="modal fade" id="myModal_@choice.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    @foreach (var voter in choice.Voters)
+                    {
+                        @($"{voter.Username } Rate {voter.Rating}")<br />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+}
+<br />
+<br />
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>

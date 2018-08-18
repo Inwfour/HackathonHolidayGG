@@ -7,5 +7,8 @@ namespace GG.Poll.Models
 {
     public class Choice
     {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public IEnumerable<Voter> Voters { get; set; }
     }
 }

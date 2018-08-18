@@ -16,8 +16,8 @@ namespace GG.Poll.Repositories
 
         public PollRepository(MongoDBConfiguration _option)
         {
-            //_client = new MongoClient(_option.DefaultConnection);
-            //_database = _client.GetDatabase(_option.DatabaseName);
+            _client = new MongoClient(_option.DefaultConnection);
+            _database = _client.GetDatabase(_option.DatabaseName);
         }
 
         public T Get(Expression<Func<T, bool>> expression)

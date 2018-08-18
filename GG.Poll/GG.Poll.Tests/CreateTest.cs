@@ -11,10 +11,6 @@ using Xunit;
 
 namespace GG.Poll.Tests
 {
-    //- create coplete
-    //- create fail: no title
-    //- create fail: no choice
-
     public class CreateTest
     {
         public Mock<IDataRepository<UniversalPoll>> pollDac { get; set; }

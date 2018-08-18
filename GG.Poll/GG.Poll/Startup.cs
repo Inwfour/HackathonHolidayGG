@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GG.Poll.BizDomains;
+using GG.Poll.Models;
+using GG.Poll.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,8 +35,18 @@ namespace GG.Poll
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSession();
+            services.AddDistributedMemoryCache();
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromSeconds(60));
+
+            services.Configure<MongoDBConfiguration>(Configuration.GetSection("MongoDBConfiguration"));
+            services.AddTransient(x => Configuration.GetSection("MongoDBConfiguration").Get<MongoDBConfiguration>());
+
+            services.AddTransient<IDataRepository<UniversalPoll>, PollRepository<UniversalPoll>>();
+            services.AddTransient<IPollBizDomain, PollBizDomain>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
