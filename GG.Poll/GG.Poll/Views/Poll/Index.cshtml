@@ -1,11 +1,22 @@
-﻿
 @{
     ViewData["Title"] = "Index";
-}
-
-<h2>Index</h2>
-
+}﻿
 <form asp-action="Login" method="get">
-    <input type="text" name="username" />
-    <button type="submit">Login</button>
+    <div style="padding:100px;border:1px solid gray;margin-top:100px">
+        <div style="text-align:center;">
+            <img style="width:30%;" src="images/logo.png" alt="Sample Photo" />
+        </div>
+        <div style="text-align:center;color:#2F4BFF;font-weight: bold;margin-bottom:80px;font-size:50px">
+            <label>Universal Vote</label>
+        </div>
+        <h3 style="text-align:center;">Enter Your Username</h3>
+        <div class="input-group row" style="margin-bottom:30px;padding:15px">
+
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input id="email" type="text" class="form-control input-lg" name="username" placeholder="User">
+        </div>
+        <div style="margin-bottom:60px">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">LOG IN</button>
+        </div>
+    </div>
 </form>

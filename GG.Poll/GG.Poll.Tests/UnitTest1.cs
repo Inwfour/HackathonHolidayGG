@@ -8,7 +8,7 @@ namespace GG.Poll.Tests
         [Fact]
         public void Test1()
         {
-
+            
         }
     }
 }

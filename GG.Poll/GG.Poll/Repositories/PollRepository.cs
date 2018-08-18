@@ -37,12 +37,18 @@ namespace GG.Poll.Repositories
 
         public void DeleteOne(Expression<Func<T, bool>> expression)
         {
-            Collection.DeleteOne(expression);
+
+            Collection.DeleteMany(expression);
+        }
+
+        public void UpdateOne(Expression<Func<T, bool>> expression)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateOne(Expression<Func<T, bool>> expression, T document)
         {
-            Collection.ReplaceOne(expression, document);
+            throw new NotImplementedException();
         }
     }
 }
