@@ -3,52 +3,50 @@
 @{
     ViewData["Title"] = "PollList";
 }
+<div style="margin-top:10%">
+    <div style="padding:8px;background-color:#2F4BFF;color:white;text-indent:30px;font-weight:bold;font-size:40px;margin-bottom:5px">
 
-<h2>PollList</h2>
-<a asp-action="Create">Create</a>
-<p>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Panel title</h3>
-        </div>
-        <div class="panel-body">
-            Panel content
-        </div>
+        Poll List
+        <button type="button" class="btn btn-success" style="text-align:right">
+            <a asp-action="Create" style="color:white">Create Poll</a>
+        </button>
+
     </div>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Owner)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.ActionLink(item.Title, "Details", new { id = item.Id })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Owner)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Owner)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Title, "Details", new { id = item.Id })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Owner)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
