@@ -117,7 +117,12 @@ namespace GG.Poll.Controllers
             try
             {
                 poll.Id = Guid.NewGuid().ToString();
-                poll.Choices = new List<Choice> { new Choice() };
+                poll.Choices = poll.Choices.Where(c => !string.IsNullOrWhiteSpace(c.Title)).ToList();
+                foreach (var choice in poll.Choices)
+                {
+                    choice.Id = Guid.NewGuid().ToString();
+                    choice.Voters = Enumerable.Empty<Voter>();
+                }
                 poll.CreateDate = DateTime.UtcNow;
                 poll.Owner = username;
                 pollBiz.Create(poll);
@@ -126,6 +131,7 @@ namespace GG.Poll.Controllers
             catch (Exception ex)
             {
                 TempData["message"] = ex.Message;
+                return View();
             }
             return RedirectToAction(nameof(List));
         }
