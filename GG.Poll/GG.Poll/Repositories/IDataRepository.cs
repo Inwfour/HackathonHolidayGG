@@ -14,7 +14,6 @@ namespace GG.Poll.Repositories
         T Get(Expression<Func<T, bool>> expression);
         List<T> List(Expression<Func<T, bool>> expression);
         void Create(T document);
-        void CreateMany(List<T> documents);
         void DeleteOne(Expression<Func<T, bool>> expression);
         void UpdateOne(Expression<Func<T, bool>> expression, T document);
     }
