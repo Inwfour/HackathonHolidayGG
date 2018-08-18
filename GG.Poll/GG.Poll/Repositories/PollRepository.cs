@@ -12,11 +12,12 @@ namespace GG.Poll.Repositories
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
 
-        public IMongoCollection<T> Collection => throw new NotImplementedException();
-        PollRepository()
+        public IMongoCollection<T> Collection => _database.GetCollection<T>(typeof(T).Name);
+
+        public PollRepository(MongoDBConfiguration _option)
         {
-            //_client = new MongoClient(_option.DefaultConnection);
-            //_database = _client.GetDatabase(_option.DatabaseName);
+            _client = new MongoClient(_option.DefaultConnection);
+            _database = _client.GetDatabase(_option.DatabaseName);
         }
 
         public T Get(Expression<Func<T, bool>> expression)
@@ -41,15 +42,12 @@ namespace GG.Poll.Repositories
 
         public void DeleteOne(Expression<Func<T, bool>> expression)
         {
-            Collection.DeleteMany(expression);
+            Collection.DeleteOne(expression);
         }
 
-        public void Update(T document)
+        public void UpdateOne(Expression<Func<T, bool>> expression, T document)
         {
-            var update = Builders<T>.Update
-                .Set(x => x.SoldType, document.SoldType)
-                .Set(x => x.SoldDate, document.SoldDate);
-            Collection.UpdateOne(x => x.Id == document.Id, update);
+            Collection.ReplaceOne(expression, document);
         }
     }
 }
